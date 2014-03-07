@@ -1,5 +1,6 @@
 Railo Cookbook
 =================
+ [![Build Status](https://secure.travis-ci.org/opscode-cookbooks/railo.png?branch=master)](http://travis-ci.org/opscode-cookbooks/railo)
 
 This cookbook installs Railo (right now on tomcat)
 
