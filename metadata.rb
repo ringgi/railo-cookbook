@@ -3,7 +3,7 @@ maintainer_email  'roland.ringgenberg@ringgi.net'
 license           'Apache 2.0'
 description       'Install and setup Railo'
 long_description  'The cookbook installs Railo on an existing Java Application Server'
-version           '0.1.0'
+version           '0.1.1'
 
 depends   'tomcat'
 
