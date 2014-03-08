@@ -23,10 +23,11 @@ node.default['tomcat']['catalina_options'] = "-javaagent:#{node['railo']['base_i
 
 execute 'create the railo config directory' do
   command "mkdir -pv --mode 0775 #{node['railo']['config_dir']}"
+  not_if {::File.exists?("#{node['railo']['config_dir']}")}
 end
 
 execute 'change owner of the railo directory' do
-  command "chown -R root:#{node['railo']['user']['id']} #{node['railo']['config_dir']}"
+  command "chown -R #{node['railo']['user']['id']}:#{node['railo']['user']['id']} #{node['railo']['config_dir']}"
 end
 
 template "#{node['tomcat']['base']}/conf/catalina.properties" do
@@ -37,4 +38,8 @@ end
 template "#{node['tomcat']['base']}/conf/web.xml" do
   source "web.xml.erb"
   mode "0644"
+end
+
+execute 'restart tomcat' do
+  command "service tomcat#{node['tomcat']['base_version']} restart"
 end
