@@ -1,13 +1,12 @@
 Railo Cookbook
 =================
- [![Build Status](https://secure.travis-ci.org/opscode-cookbooks/railo.png?branch=master)](http://travis-ci.org/opscode-cookbooks/railo)
 
 This cookbook installs Railo (right now on tomcat)
 
 Requirements
 ------------
 
-The cookbook has been tested on Ubuntu 12.04, but should work on most platforms where Java 1.6 works.
+The cookbook has been tested on Ubuntu 12.04, but should work on most platforms where Java 6 or 7 work.
 
 ### Platforms
 - Ubuntu
@@ -70,9 +69,8 @@ Contributing
 1. Fork the repository on Github
 2. Create a named feature branch (like `add_component_x`)
 3. Write you change
-4. Write tests for your change
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request
+4. Test your change
+5. Submit a Pull Request
 
 License & Authors
 -----------------
