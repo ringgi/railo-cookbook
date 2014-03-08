@@ -54,6 +54,7 @@ railo_dir = "#{node['railo']['base_installation_directory']}/railo#{node['railo'
 
 execute 'create the railo main directory' do
   command "mkdir -pv --mode 0775 #{railo_dir}"
+  not_if {::File.exists?("#{railo_dir}")}
 end
 
 execute 'download railo jars' do
