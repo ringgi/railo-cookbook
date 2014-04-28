@@ -61,7 +61,27 @@ Just include `recipe[railo]` in your node's `run_list` and configure the java an
 Running the tests
 -----------------
 
-There is not tests infrastructure setup yet, feel free to start
+A ruby environment with Bundler installed is a prerequisite for using
+the testing harness shipped with this cookbook. At the time of this
+writing, it works with Ruby 2.0 and Bundler 1.5.3. All programs
+involved, with the exception of Vagrant, can be installed by cd'ing
+into the parent directory of this cookbook and running "bundle install"
+
+The Rakefile currently ships with an integration test task. Integration tests can also be ran with Test Kitchen
+cloud drivers.
+
+Integration tests can be performed on a local workstation using
+Virtualbox or VMWare. Detailed instructions for setting this up can be
+found at the [Bento](https://github.com/opscode/bento) project web site.
+
+Integration tests using Vagrant can be performed with either
+```
+bundle exec kitchen test
+```
+or
+```
+rake integration:vagrant
+```
 
 Contributing
 ------------
