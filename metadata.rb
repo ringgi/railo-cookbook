@@ -1,4 +1,4 @@
-name							'railo'
+name              'railo'
 maintainer        'Roland Ringgenberg'
 maintainer_email  'roland.ringgenberg@ringgi.net'
 license           'Apache 2.0'
