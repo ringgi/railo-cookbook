@@ -21,11 +21,13 @@
 
 
 # copy railo_config.cfm
-directory "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config" do
-  recursive true
+config_dir = "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config"
+
+directory config_dir do
+  action :create
 end
 
-template "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config/railo_config.cfm" do
+template "#{config_dir}/railo_config.cfm" do
   source "railo_config.cfm.erb"
 end
 
@@ -35,9 +37,12 @@ http_request "null" do
 end
 
 # delete railo_config.cfm
-file "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config/railo_config.cfm" do
+file "#{config_dir}/railo_config.cfm" do
   action :delete
   user "root"
+end
+directory config_dir do
+  action :delete
 end
 
 execute 'restart tomcat' do
