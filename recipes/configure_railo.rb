@@ -19,13 +19,16 @@
 # limitations under the License.
 #
 
-
-# copy _admin.cfm
+# copy railo_config.cfm
 template "#{node['tomcat']['webapps_base_dir']}/railo_config.cfm" do
   source "railo_config.cfm.erb"
   # mode 0644
   # owner "root"
   # group "root"
+end
+
+template "/var/lib/tomcat7/webapps/railo_config.cfm" do
+  source "railo_config.cfm.erb"
 end
 
 # run railo_config.cfm
