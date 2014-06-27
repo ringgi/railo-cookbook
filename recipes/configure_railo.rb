@@ -20,17 +20,17 @@
 #
 
 # copy railo_config.cfm
-template "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo_config.cfm" do
+template "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config/railo_config.cfm" do
   source "railo_config.cfm.erb"
 end
 
 # run railo_config.cfm
 http_request "null" do
-  url "http://localhost:#{node['opsworks_java']['tomcat']['port']}/railo_config.cfm"
+  url "http://localhost:#{node['opsworks_java']['tomcat']['port']}/railo-config/railo_config.cfm"
 end
 
 # delete railo_config.cfm
-file "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo_config.cfm" do
+file "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config/railo_config.cfm" do
   action :delete
   user "root"
 end
