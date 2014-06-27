@@ -42,5 +42,8 @@ case node['platform']
     default['railo']['config_dir'] = '/var/lib/railo/config'
 end
 
+# below here is for railo config
+default['railo']['web_password'] = "railoweb"
+default['railo']['server_password'] = "railoserver"
 
 

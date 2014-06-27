@@ -1,0 +1,15 @@
+<cftry>
+	<cfadmin 
+		action="updatePassword"
+		type="server"
+		newPassword="<%= node['railo']['server_password'] %>">
+	<cfcatch></cfcatch>
+</cftry>
+
+<cftry>
+	<cfadmin 
+		action="updatePassword"
+		type="web"
+		newPassword="<%= node['railo']['web_password'] %>">
+	<cfcatch></cfcatch>
+</cftry>
