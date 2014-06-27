@@ -20,6 +20,6 @@
 #
 
 # below here is for railo config
-default['railo']['web_password'] = "railoweb"
-default['railo']['server_password'] = "railoserver"
+default['railo']['web_password'] = "changeme"
+default['railo']['server_password'] = "changeme"
 default['railo']['datasources'] = {}
