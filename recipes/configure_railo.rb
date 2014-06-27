@@ -19,7 +19,12 @@
 # limitations under the License.
 #
 
+
 # copy railo_config.cfm
+directory "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config" do
+  recursive true
+end
+
 template "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config/railo_config.cfm" do
   source "railo_config.cfm.erb"
 end
