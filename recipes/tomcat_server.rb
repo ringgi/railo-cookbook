@@ -22,6 +22,7 @@
 include_recipe 'tomcat'
 include_recipe 'railo::download_railo_jars'
 include_recipe 'railo::configure_tomcat'
+include_recipe 'railo::configure_railo'
 
 
 
