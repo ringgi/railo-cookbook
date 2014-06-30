@@ -1,19 +1,31 @@
-<cftry>
-	<cfadmin 
-		action="updatePassword"
-		type="server"
-		newPassword="<%= node['railo']['server_password'] %>">
-	<cfcatch></cfcatch>
-</cftry>
+<cfsetting requesttimeout="10000">
 
-<cftry>
-	<cfadmin 
-		action="updatePassword"
-		type="web"
-		newPassword="<%= node['railo']['web_password'] %>">
-	<cfcatch></cfcatch>
-</cftry>
+<!-- update passwords -->
+<cfadmin
+    action="hasPassword"
+    type="server"
+    returnVariable="hasPassword">
 
+<cfif NOT hasPassword>
+	<!-- only do this if it hasn't been set up yet -->
+	<cftry>
+		<cfadmin 
+			action="updatePassword"
+			type="server"
+			newPassword="<%= node['railo']['server_password'] %>">
+		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+	</cftry>
+	<cftry>
+		<cfadmin 
+			action="updateDefaultPassword"
+			type="server"
+			password="<%= node['railo']['server_password'] %>"
+			newPassword="<%= node['railo']['web_password'] %>">
+		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+	</cftry>
+</cfif>
+
+<!-- add in some datasources -->
 <% node['railo']['datasources'].each do |dsnname, conf| %>
 	<cftry>
 		<cfadmin 
@@ -24,6 +36,7 @@
 			dbusername="<%= conf.username %>"
 			dbpassword="<%= conf.password %>"
 			name="<%= dsnname %>"
+			newName="<%= dsnname %>"
 			host="<%= conf.host %>"
 			database="<%= conf.database %>"
 
@@ -46,6 +59,32 @@
 			allowed_grant="true"
 			custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=true" 
 			remoteClients="arrayOfClients">
-		<cfcatch></cfcatch>
+		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 	</cftry>
 <% end %>
+
+<!-- update update settings -->
+<cftry>
+	<cfadmin 
+		action="UpdateUpdate"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		
+		updateType="auto"
+		updateLocation="http://www.getrailo.org"
+		remoteClients="#request.getRemoteClients()#">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
+<!-- run an update -->
+<cftry>
+	<cfadmin 
+		action="runUpdate"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		remoteClients="#request.getRemoteClients()#">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
+
+
