@@ -63,28 +63,38 @@
 	</cftry>
 <% end %>
 
-<!-- update update settings -->
 <cftry>
 	<cfadmin 
-		action="UpdateUpdate"
+		action="getRemoteClients"
 		type="server"
 		password="<%= node['railo']['server_password'] %>"
+		returnVariable="arrRemoteClients">
 		
-		updateType="auto"
-		updateLocation="http://www.getrailo.org"
-		remoteClients="#request.getRemoteClients()#">
+	<!-- update update settings -->
+	<cftry>
+		<cfadmin 
+			action="UpdateUpdate"
+			type="server"
+			password="<%= node['railo']['server_password'] %>"
+			
+			updateType="auto"
+			updateLocation="http://www.getrailo.org"
+			remoteClients="#arrRemoteClients#">
+		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+	</cftry>
+
+	<!-- run an update -->
+	<cftry>
+		<cfadmin 
+			action="runUpdate"
+			type="server"
+			password="<%= node['railo']['server_password'] %>"
+			remoteClients="#arrRemoteClients#">
+		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+	</cftry>
 	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 </cftry>
 
-<!-- run an update -->
-<cftry>
-	<cfadmin 
-		action="runUpdate"
-		type="server"
-		password="<%= node['railo']['server_password'] %>"
-		remoteClients="#request.getRemoteClients()#">
-	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
-</cftry>
 
 
 
