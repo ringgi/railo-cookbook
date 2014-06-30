@@ -37,13 +37,13 @@ http_request "null" do
 end
 
 # delete railo_config.cfm
-#file "#{config_dir}/railo_config.cfm" do
-#  action :delete
-#  user "root"
-#end
-#directory config_dir do
-#  action :delete
-#end
+file "#{config_dir}/railo_config.cfm" do
+  action :delete
+  user "root"
+end
+directory config_dir do
+  action :delete
+end
 
 execute 'restart tomcat' do
   command "service tomcat#{node['tomcat']['base_version']} restart"
