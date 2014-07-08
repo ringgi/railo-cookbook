@@ -23,15 +23,8 @@ default['railo']['app_server'] = 'tomcat'
 default['railo']['user']['id'] = 'tomcat'
 default['railo']['major_version'] = '4'
 default['railo']['minor_version'] = '2'
-
-case default['railo']['app_server']
-  when 'tomcat'
-    include_attribute 'tomcat'
-    default['railo']['user']['id'] = "tomcat#{node['tomcat']['base_version']}"
-    default['railo']['port'] = node['tomcat']['port']
-  else
-    default['railo']['port'] = '8888'
-end
+default['railo']['user']['id'] = "tomcat#{node['tomcat']['base_version']}"
+default['railo']['port'] = node['tomcat']['port']
 
 case node['platform']
   when 'debian', 'ubuntu'
