@@ -64,18 +64,6 @@
 <% end %>
 
 
-<!-- Output settings -->
-<cftry>
-	<cfadmin
-		action="updateOutputSetting"
-		type="server"
-		password="<%= node['railo']['server_password'] %>"
-		supressWhiteSpace="white-space-pref"
-		showVersion="false"
-		remoteClients="arrayOfClients">
-	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
-</cftry>
-
 <cftry>
 	<cfadmin 
 		action="getRemoteClients"
@@ -93,6 +81,18 @@
 			timezone="Europe/London"
 			locale="en_GB"
 			timeserver="pool.ntp.org"
+			remoteClients="#arrRemoteClients#">
+		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+	</cftry>
+
+	<!-- Output settings -->
+	<cftry>
+		<cfadmin
+			action="updateOutputSetting"
+			type="server"
+			password="<%= node['railo']['server_password'] %>"
+			supressWhiteSpace="white-space-pref"
+			showVersion="false"
 			remoteClients="#arrRemoteClients#">
 		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 	</cftry>
