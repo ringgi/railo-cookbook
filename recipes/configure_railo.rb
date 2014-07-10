@@ -27,7 +27,7 @@ directory config_dir do
   action :create
 end
 
-template "#{config_dir}/Application.cfc" do
+file "#{config_dir}/Application.cfc" do
 end
 
 template "#{config_dir}/railo_config.cfm" do
