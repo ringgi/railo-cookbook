@@ -27,6 +27,9 @@ directory config_dir do
   action :create
 end
 
+template "#{config_dir}/Application.cfc" do
+end
+
 template "#{config_dir}/railo_config.cfm" do
   source "railo_config.cfm.erb"
 end
@@ -38,6 +41,10 @@ end
 
 # delete railo_config.cfm
 file "#{config_dir}/railo_config.cfm" do
+  action :delete
+  user "root"
+end
+file "#{config_dir}/Application.cfc" do
   action :delete
   user "root"
 end
