@@ -81,8 +81,11 @@
 		action="updateOutputSetting"
 		type="server"
 		password="<%= node['railo']['server_password'] %>"
-		cfmlWriter="white-space-pref"
-		showVersion="false">
+		suppressContent=""
+		allowCompression=""
+		contentLength=""
+		bufferOutput=""
+		cfmlWriter="white-space-pref">
 	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 </cftry>
 	
