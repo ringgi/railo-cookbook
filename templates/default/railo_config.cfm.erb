@@ -27,40 +27,81 @@
 
 <!-- add in some datasources -->
 <% node['railo']['datasources'].each do |dsnname, conf| %>
-	<cftry>
-		<cfadmin 
-			action="updateDatasource"
-			type="server"
-			password="<%= node['railo']['server_password'] %>"
+	
+	<% case conf.type-%>
+		<% when "mysql" %>
+			<cftry>
+				<cfadmin 
+					action="updateDatasource"
+					type="server"
+					password="<%= node['railo']['server_password'] %>"
 
-			dbusername="<%= conf.username %>"
-			dbpassword="<%= conf.password %>"
-			name="<%= dsnname %>"
-			newName="<%= dsnname %>"
-			host="<%= conf.host %>"
-			database="<%= conf.database %>"
+					dbusername="<%= conf.username %>"
+					dbpassword="<%= conf.password %>"
+					name="<%= dsnname %>"
+					newName="<%= dsnname %>"
+					host="<%= conf.host %>"
+					database="<%= conf.database %>"
 
-			classname="org.gjt.mm.mysql.Driver"
-			dsn="jdbc:mysql://{host}:{port}/{database}"
-			port="3306"
+					classname="org.gjt.mm.mysql.Driver"
+					dsn="jdbc:mysql://{host}:{port}/{database}"
+					port="<%= conf.port %>"
 
-			connectionLimit="-1"
-			connectionTimeout="1"
-			blob="true"
-			clob="true"
-			allowed_select="true"
-			allowed_insert="true"
-			allowed_update="true"
-			allowed_delete="true"
-			allowed_alter="true"
-			allowed_drop="true"
-			allowed_revoke="true"
-			allowed_create="true"
-			allowed_grant="true"
-			custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=true" 
-			remoteClients="arrayOfClients">
-		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
-	</cftry>
+					connectionLimit="-1"
+					connectionTimeout="1"
+					blob="true"
+					clob="true"
+					allowed_select="true"
+					allowed_insert="true"
+					allowed_update="true"
+					allowed_delete="true"
+					allowed_alter="true"
+					allowed_drop="true"
+					allowed_revoke="true"
+					allowed_create="true"
+					allowed_grant="true"
+					custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=true" 
+					remoteClients="arrayOfClients">
+				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+			</cftry>
+		<% when "mssql" %>
+
+			<cftry>
+				<cfadmin 
+					action="updateDatasource"
+					type="server"
+					password="<%= node['railo']['server_password'] %>"
+
+					dbusername="<%= conf.username %>"
+					dbpassword="<%= conf.password %>"
+					name="<%= dsnname %>"
+					newName="<%= dsnname %>"
+					host="<%= conf.host %>"
+					database="<%= conf.database %>"
+
+					classname="com.microsoft.jdbc.sqlserver.SQLServerDriver"
+					dsn="jdbc:sqlserver://{host}:{port};DATABASENAME={database};sendStringParametersAsUnicode=true;SelectMethod=direct"
+					port="<%= conf.port %>"
+
+					connectionLimit="-1"
+					connectionTimeout="1"
+					blob="true"
+					clob="true"
+					allowed_select="true"
+					allowed_insert="true"
+					allowed_update="true"
+					allowed_delete="true"
+					allowed_alter="true"
+					allowed_drop="true"
+					allowed_revoke="true"
+					allowed_create="true"
+					allowed_grant="true"
+					custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=true" 
+					remoteClients="arrayOfClients">
+				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+			</cftry>
+
+	<% end -%>
 <% end %>
 
 <!-- Locale settings -->
