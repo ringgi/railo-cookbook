@@ -26,10 +26,11 @@
 </cfif>
 
 <!-- add in some datasources -->
-<% node['railo']['datasources'].each do |dsnname, conf| %>
-	
-	<% case conf.type-%>
-		<% when "mysql" %>
+<% 
+node['railo']['datasources'].each do |dsnname, conf|
+	case conf.type
+		when "mysql" 
+%>
 			<cftry>
 				<cfadmin 
 					action="updateDatasource"
@@ -64,7 +65,9 @@
 					remoteClients="arrayOfClients">
 				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 			</cftry>
-		<% when "mssql" %>
+<% 
+		when "mssql" 
+%>
 
 			<cftry>
 				<cfadmin 
@@ -101,8 +104,10 @@
 				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 			</cftry>
 
-	<% end -%>
-<% end %>
+<% 
+	end
+end 
+%>
 
 <!-- Locale settings -->
 <cftry>
