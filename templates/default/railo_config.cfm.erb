@@ -111,6 +111,21 @@ node['railo']['datasources'].each do |dsnname, conf|
 end 
 %>
 
+<!-- Mail settings -->
+<cftry>
+	<cfadmin
+		action="updateMailServer"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		hostname="<%= node['railo']['mail']['host'] %>"
+		dbusername="<%= node['railo']['mail']['user'] %>"
+		dbpassword="<%= node['railo']['mail']['password'] %>"
+		port="25"
+		tls="false"
+		ssl="false">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
 <!-- Locale settings -->
 <cftry>
 	<cfadmin
