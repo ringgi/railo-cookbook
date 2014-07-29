@@ -110,6 +110,17 @@ node['railo']['datasources'].each do |dsnname, conf|
 end 
 %>
 
+<!-- Performance settings -->
+<cftry>
+	<cfadmin 
+		action="updatePerformanceSettings"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		inspectTemplate="never"
+		typeChecking="true">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
 <!-- Mail settings -->
 <cftry>
 	<cfadmin
