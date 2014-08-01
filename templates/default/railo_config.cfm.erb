@@ -44,7 +44,6 @@ node['railo']['datasources'].each do |dsnname, conf|
 					host="<%= conf.host %>"
 					database="<%= conf.database %>"
 
-					timezone="UTC"
 					classname="org.gjt.mm.mysql.Driver"
 					dsn="jdbc:mysql://{host}:{port}/{database}"
 					port="<%= conf.port %>"
@@ -63,7 +62,7 @@ node['railo']['datasources'].each do |dsnname, conf|
 					allowed_create="true"
 					allowed_grant="true"
 					validate="false"
-					custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=false">
+					custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=true">
 				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 			</cftry>
 <% 
