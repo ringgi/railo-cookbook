@@ -35,7 +35,7 @@ case node['railo']['major_version']
   when '5'
     # Does not exists yet TODO: throw an error
   else
-    railo_version = '4.1.2.005'
+    railo_version = '4.2.1.000'
 end
 
 # Set the download urls and filename
