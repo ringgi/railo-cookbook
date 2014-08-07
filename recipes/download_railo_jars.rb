@@ -28,7 +28,7 @@ case node['railo']['major_version']
       when '1'
         railo_version = '4.1.2.005'
       when '2'
-        railo_version = '4.2.0.000'
+        railo_version = '4.2.1.000'
       else
         railo_version = '4.0.4.001'
       end
