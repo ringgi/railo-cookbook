@@ -10,3 +10,7 @@ v0.1.0
 v0.1.1
 ------
 - Now it's possible to re-run chef-client without braking the setup railo
+
+v0.1.2
+------
+- Updated the default railo verision to 4.2.1.000
