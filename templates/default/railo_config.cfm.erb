@@ -115,7 +115,7 @@ end
 		action="updatePerformanceSettings"
 		type="server"
 		password="<%= node['railo']['server_password'] %>"
-		inspectTemplate="never"
+		inspectTemplate="once"
 		typeChecking="true">
 	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 </cftry>
