@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+include_attribute "opsworks_java::default"
+
 default['railo']['app_server'] = 'tomcat'
 default['railo']['user']['id'] = "tomcat#{node['opsworks_java']['tomcat']['base_version']}"
 default['railo']['port'] = node['opsworks_java']['tomcat']['port']
