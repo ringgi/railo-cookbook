@@ -30,12 +30,12 @@ execute 'change owner of the railo directory' do
   command "chown -R #{node['railo']['user']['id']}:#{node['railo']['user']['id']} #{node['railo']['config_dir']}"
 end
 
-template "#{node[:opsworks][:tomcat][:base]}/conf/catalina.properties" do
+template "#{node[:opsworks][:tomcat][:catalina_base_dir]}/conf/catalina.properties" do
   source "catalina.properties.erb"
   mode "0644"
 end
 
-template "#{node[:opsworks][:tomcat][:base]}/conf/web.xml" do
+template "#{node[:opsworks][:tomcat][:catalina_base_dir]}/conf/web.xml" do
   source "web.xml.erb"
   mode "0644"
 end
