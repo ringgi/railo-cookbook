@@ -23,10 +23,6 @@ default['railo']['app_server'] = 'tomcat'
 default['railo']['user']['id'] = 'tomcat'
 default['railo']['major_version'] = '4'
 default['railo']['minor_version'] = '2'
-<<<<<<< HEAD
-default['railo']['user']['id'] = "tomcat#{node['tomcat']['base_version']}"
-default['railo']['port'] = node['tomcat']['port']
-=======
 
 case default['railo']['app_server']
   when 'tomcat'
@@ -36,7 +32,6 @@ case default['railo']['app_server']
   else
     default['railo']['port'] = '8888'
 end
->>>>>>> upstream/master
 
 case node['platform']
   when 'debian', 'ubuntu'
