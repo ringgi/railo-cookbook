@@ -21,7 +21,7 @@
 
 
 # copy railo_config.cfm
-config_dir = "#{node['opsworks_java']['tomcat']['webapps_base_dir']}/railo-config"
+config_dir = "#{node[:opsworks_java][:tomcat][:webapps_base_dir]}/railo-config"
 
 directory config_dir do
   action :create
@@ -36,7 +36,7 @@ end
 
 # run railo_config.cfm
 http_request "null" do
-  url "http://localhost:#{node['opsworks_java']['tomcat']['port']}/railo-config/railo_config.cfm"
+  url "http://localhost:#{node[:opsworks_java][:tomcat][:port]}/railo-config/railo_config.cfm"
 end
 
 # delete railo_config.cfm
@@ -53,5 +53,5 @@ directory config_dir do
 end
 
 execute 'restart tomcat' do
-  command "service tomcat#{node['tomcat']['base_version']} restart"
+  command "service #{node[:opsworks][:tomcat][:service_name]} restart"
 end

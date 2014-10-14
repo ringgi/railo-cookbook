@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-#node[:opsworks][:tomcat][:catalina_options] = "-javaagent:#{node['railo']['base_installation_directory']}/railo#{node['railo']['major_version']}/lib/railo-inst.jar"
+node[:opsworks_java][:tomcat][:java_opts] = "-javaagent:#{node['railo']['base_installation_directory']}/railo#{node['railo']['major_version']}/lib/railo-inst.jar"
 
 execute 'create the railo config directory' do
   command "mkdir -pv --mode 0775 #{node['railo']['config_dir']}"
@@ -30,16 +30,16 @@ execute 'change owner of the railo directory' do
   command "chown -R #{node['railo']['user']['id']}:#{node['railo']['user']['id']} #{node['railo']['config_dir']}"
 end
 
-template "#{node[:opsworks][:tomcat][:catalina_base_dir]}/conf/catalina.properties" do
+template "#{node[:opsworks_java][:tomcat][:catalina_base_dir]}/conf/catalina.properties" do
   source "catalina.properties.erb"
   mode "0644"
 end
 
-template "#{node[:opsworks][:tomcat][:catalina_base_dir]}/conf/web.xml" do
+template "#{node[:opsworks_java][:tomcat][:catalina_base_dir]}/conf/web.xml" do
   source "web.xml.erb"
   mode "0644"
 end
 
 execute 'restart tomcat' do
-  command "service #{node[:opsworks][:tomcat][:service_name]} restart"
+  command "service #{node[:opsworks_java][:tomcat][:service_name]} restart"
 end
