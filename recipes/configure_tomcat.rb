@@ -19,8 +19,6 @@
 # limitations under the License.
 #
 
-node[:opsworks_java][:tomcat][:java_opts] = "-javaagent:#{node[:railo][:base_installation_directory]}/railo#{node[:railo][:major_version]}/lib/railo-inst.jar"
-
 execute 'create the railo config directory' do
   command "mkdir -pv --mode 0775 #{node[:railo][:config_dir]}"
   not_if {::File.exists?("#{node[:railo][:config_dir]}")}
