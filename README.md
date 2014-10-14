@@ -1,15 +1,15 @@
 Railo Cookbook
 =================
 
-This cookbook installs Railo (right now on tomcat)
+This cookbook installs Railo onto an OpsWorks Java layer.
 
 Requirements
 ------------
 
-The cookbook has been tested on Ubuntu 12.04, but should work on most platforms where Java 6 or 7 work.
+This cookbook is a fork of https://github.com/ringgi/railo-cookbook that has been heavily modified for use within Amazon OpsWorks as an addition to a Java layer.
 
 ### Platforms
-- Ubuntu
+- Amazon OpsWorks Java layer
 
 ### Cookbooks
 - java
