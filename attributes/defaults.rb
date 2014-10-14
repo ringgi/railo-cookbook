@@ -19,7 +19,7 @@
 # limitations under the License.
 
 default['railo']['app_server'] = 'tomcat'
-default['railo']['user']['id'] = "tomcat#{node['opsworks_java']['tomcat']['base_version']}"
+default['railo']['user']['id'] =  node['opsworks_java']['tomcat']['user']
 default['railo']['port'] = node['opsworks_java']['tomcat']['port']
 default['railo']['major_version'] = '4'
 default['railo']['minor_version'] = '2'

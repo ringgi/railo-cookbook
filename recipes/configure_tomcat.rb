@@ -19,15 +19,15 @@
 # limitations under the License.
 #
 
-node[:opsworks_java][:tomcat][:java_opts] = "-javaagent:#{node['railo']['base_installation_directory']}/railo#{node['railo']['major_version']}/lib/railo-inst.jar"
+node[:opsworks_java][:tomcat][:java_opts] = "-javaagent:#{node[:railo][:base_installation_directory]}/railo#{node[:railo][:major_version]}/lib/railo-inst.jar"
 
 execute 'create the railo config directory' do
-  command "mkdir -pv --mode 0775 #{node['railo']['config_dir']}"
-  not_if {::File.exists?("#{node['railo']['config_dir']}")}
+  command "mkdir -pv --mode 0775 #{node[:railo][:config_dir]}"
+  not_if {::File.exists?("#{node[:railo][:config_dir]}")}
 end
 
 execute 'change owner of the railo directory' do
-  command "chown -R #{node['railo']['user']['id']}:#{node['railo']['user']['id']} #{node['railo']['config_dir']}"
+  command "chown -R #{node[:railo][:user][:id]}:#{node[:railo][:user][:id]} #{node[:railo][:config_dir]}"
 end
 
 template "#{node[:opsworks_java][:tomcat][:catalina_base_dir]}/conf/catalina.properties" do
