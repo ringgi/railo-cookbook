@@ -53,5 +53,5 @@ directory config_dir do
 end
 
 execute 'restart tomcat' do
-  command "service #{node[:opsworks][:tomcat][:service_name]} restart"
+  command "service #{node[:opsworks_java][:tomcat][:service_name]} restart"
 end
