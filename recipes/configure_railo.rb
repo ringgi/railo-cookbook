@@ -37,6 +37,8 @@ end
 # run railo_config.cfm
 http_request "null" do
   url "http://localhost:#{node[:opsworks_java][:tomcat][:port]}/railo-config/railo_config.cfm"
+  retries 20
+  retry_delay 3
 end
 
 # delete railo_config.cfm
