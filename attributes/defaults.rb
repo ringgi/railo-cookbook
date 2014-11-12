@@ -18,6 +18,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+default['opsworks_java']['tomcat']['port'] = 8080
+default['opsworks_java']['tomcat']['user'] = 'tomcat'
+
 default['railo']['app_server'] = 'tomcat'
 default['railo']['user']['id'] =  node['opsworks_java']['tomcat']['user']
 default['railo']['port'] = node['opsworks_java']['tomcat']['port']
