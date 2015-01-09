@@ -45,7 +45,7 @@ node['railo']['datasources'].each do |dsnname, conf|
 					database="<%= conf.database %>"
 
 					classname="org.gjt.mm.mysql.Driver"
-					dsn="jdbc:mysql://{host}:{port}/{database}"
+					dsn="jdbc:mysql://{host}:{port}/{database}?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&autoReconnect=true&jdbcCompliantTruncation=false&allowMultiQueries=false&useOldAliasMetadataBehavior=true&useLegacyDatetimeCode=true"
 					port="<%= conf.port %>"
 
 					connectionLimit="-1"
@@ -61,8 +61,7 @@ node['railo']['datasources'].each do |dsnname, conf|
 					allowed_revoke="true"
 					allowed_create="true"
 					allowed_grant="true"
-					validate="false"
-					custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=true">
+					validate="false">
 				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 			</cftry>
 <% 
@@ -101,6 +100,7 @@ node['railo']['datasources'].each do |dsnname, conf|
 					allowed_grant="true"
 					validate="false"
 					custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=true">
+					custom="useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&autoReconnect=true&jdbcCompliantTruncation=false&allowMultiQueries=false&useOldAliasMetadataBehavior=true&useLegacyDatetimeCode=true">
 				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
 			</cftry>
 
