@@ -1,10 +1,10 @@
 #
 # Cookbook Name:: railo
-# Recipe:: tomcat_server
+# Attribute File:: railo_server
 #
-# Author:: Roland Ringgenberg <roland.ringgenberg@ringgi.net>
+# Author:: Simon Hooker <simon@mso.net>
 #
-# Copyright 2014 RRTechnologies
+# Copyright 2014 mso.net
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,11 +19,7 @@
 # limitations under the License.
 #
 
-include_recipe 'railo::download_railo_jars'
-include_recipe 'railo::configure_tomcat'
-include_recipe 'railo::configure_railo'
-
-
-
-
-
+# below here is for railo config
+default['railo']['web_password'] = "changeme"
+default['railo']['server_password'] = "changeme"
+default['railo']['datasources'] = {}

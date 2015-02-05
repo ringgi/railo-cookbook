@@ -1,0 +1,185 @@
+<cfsetting requesttimeout="10000">
+
+<!-- update passwords -->
+<cfadmin
+    action="hasPassword"
+    type="server"
+    returnVariable="hasPassword">
+
+<cfif NOT hasPassword>
+	<!-- only do this if it hasn't been set up yet -->
+	<cftry>
+		<cfadmin 
+			action="updatePassword"
+			type="server"
+			newPassword="<%= node['railo']['server_password'] %>">
+		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+	</cftry>
+	<cftry>
+		<cfadmin 
+			action="updateDefaultPassword"
+			type="server"
+			password="<%= node['railo']['server_password'] %>"
+			newPassword="<%= node['railo']['web_password'] %>">
+		<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+	</cftry>
+</cfif>
+
+<!-- add in some datasources -->
+<% 
+node['railo']['datasources'].each do |dsnname, conf|
+	case conf.type
+		when "mysql" 
+%>
+			<cftry>
+				<cfadmin 
+					action="updateDatasource"
+					type="server"
+					password="<%= node['railo']['server_password'] %>"
+
+					dbusername="<%= conf.username %>"
+					dbpassword="<%= conf.password %>"
+					name="<%= dsnname %>"
+					newName="<%= dsnname %>"
+					host="<%= conf.host %>"
+					database="<%= conf.database %>"
+
+					classname="org.gjt.mm.mysql.Driver"
+					dsn="jdbc:mysql://{host}:{port}/{database}?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&autoReconnect=true&jdbcCompliantTruncation=false&allowMultiQueries=false&useOldAliasMetadataBehavior=true&useLegacyDatetimeCode=true"
+					port="<%= conf.port %>"
+
+					connectionLimit="-1"
+					connectionTimeout="1"
+					blob="true"
+					clob="true"
+					allowed_select="true"
+					allowed_insert="true"
+					allowed_update="true"
+					allowed_delete="true"
+					allowed_alter="true"
+					allowed_drop="true"
+					allowed_revoke="true"
+					allowed_create="true"
+					allowed_grant="true"
+					validate="false">
+				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+			</cftry>
+<% 
+		when "mssql" 
+%>
+
+			<cftry>
+				<cfadmin 
+					action="updateDatasource"
+					type="server"
+					password="<%= node['railo']['server_password'] %>"
+
+					dbusername="<%= conf.username %>"
+					dbpassword="<%= conf.password %>"
+					name="<%= dsnname %>"
+					newName="<%= dsnname %>"
+					host="<%= conf.host %>"
+					database="<%= conf.database %>"
+
+					classname="com.microsoft.jdbc.sqlserver.SQLServerDriver"
+					dsn="jdbc:sqlserver://{host}:{port};DATABASENAME={database};sendStringParametersAsUnicode=true;SelectMethod=direct"
+					port="<%= conf.port %>"
+
+					connectionLimit="-1"
+					connectionTimeout="1"
+					blob="true"
+					clob="true"
+					allowed_select="true"
+					allowed_insert="true"
+					allowed_update="true"
+					allowed_delete="true"
+					allowed_alter="true"
+					allowed_drop="true"
+					allowed_revoke="true"
+					allowed_create="true"
+					allowed_grant="true"
+					validate="false"
+					custom="useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;tinyInt1isBit=false&amp;autoReconnect=true&amp;jdbcCompliantTruncation=false&amp;allowMultiQueries=false&amp;useOldAliasMetadataBehavior=true&amp;useLegacyDatetimeCode=true">
+					custom="useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&autoReconnect=true&jdbcCompliantTruncation=false&allowMultiQueries=false&useOldAliasMetadataBehavior=true&useLegacyDatetimeCode=true">
+				<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+			</cftry>
+
+<% 
+	end
+end 
+%>
+
+<!-- Performance settings -->
+<cftry>
+	<cfadmin 
+		action="updatePerformanceSettings"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		inspectTemplate="once"
+		typeChecking="true">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
+<!-- Mail settings -->
+<cftry>
+	<cfadmin
+		action="updateMailServer"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		hostname="<%= node['railo']['mail']['host'] %>"
+		dbusername="<%= node['railo']['mail']['user'] %>"
+		dbpassword="<%= node['railo']['mail']['password'] %>"
+		port="25"
+		tls="false"
+		ssl="false">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
+<!-- Locale settings -->
+<cftry>
+	<cfadmin
+		action="updateRegional"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		timezone="Europe/London"
+		locale="en_GB"
+		timeserver="pool.ntp.org">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
+<!-- Output settings -->
+<cftry>
+	<cfadmin
+		action="updateOutputSetting"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		suppressContent=""
+		allowCompression=""
+		contentLength=""
+		bufferOutput=""
+		cfmlWriter="white-space-pref">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+	
+<!-- update update settings -->
+<cftry>
+	<cfadmin 
+		action="UpdateUpdate"
+		type="server"
+		password="<%= node['railo']['server_password'] %>"
+		
+		updateType="auto"
+		updateLocation="http://www.getrailo.org">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
+<!-- run an update -->
+<cftry>
+	<cfadmin 
+		action="runUpdate"
+		type="server"
+		password="<%= node['railo']['server_password'] %>">
+	<cfcatch><cfdump var="#cfcatch#"></cfcatch>
+</cftry>
+
+

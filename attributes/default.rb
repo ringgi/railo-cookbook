@@ -17,30 +17,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
+default['opsworks_java']['tomcat']['port'] = 8080
+default['opsworks_java']['tomcat']['user'] = 'tomcat'
 
 default['railo']['app_server'] = 'tomcat'
-default['railo']['user']['id'] = 'tomcat'
+default['railo']['user']['id'] =  node['opsworks_java']['tomcat']['user']
+default['railo']['port'] = node['opsworks_java']['tomcat']['port']
 default['railo']['major_version'] = '4'
 default['railo']['minor_version'] = '2'
+default['railo']['base_installation_directory'] = '/opt'
+default['railo']['config_dir'] = '/var/lib/railo/config'
 
-case default['railo']['app_server']
-  when 'tomcat'
-    include_attribute 'tomcat'
-    default['railo']['user']['id'] = "tomcat#{node['tomcat']['base_version']}"
-    default['railo']['port'] = node['tomcat']['port']
-  else
-    default['railo']['port'] = '8888'
-end
-
-case node['platform']
-  when 'debian', 'ubuntu'
-    default['railo']['base_installation_directory'] = '/opt'
-    default['railo']['config_dir'] = '/var/lib/railo/config'
-  else
-    default['railo']['base_installation_directory'] = '/opt'
-    default['railo']['config_dir'] = '/var/lib/railo/config'
-end
-
-
-
+include_attribute "railo::railo_server"

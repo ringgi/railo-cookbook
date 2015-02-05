@@ -6,9 +6,5 @@ description       'Install and setup Railo'
 long_description  'The cookbook installs Railo on an existing Java Application Server'
 version           '0.1.2'
 
-depends   'tomcat'
-
-supports  'ubuntu'
-
 recipe 'railo::default', 'Runs the railo::tomcat_server recipe'
 recipe 'railo::tomcat_server', 'Installs Railo as a webserver on Tomcat'
