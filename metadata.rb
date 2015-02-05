@@ -8,5 +8,3 @@ version           '0.1.2'
 
 recipe 'railo::default', 'Runs the railo::tomcat_server recipe'
 recipe 'railo::tomcat_server', 'Installs Railo as a webserver on Tomcat'
-
-depends 'opsworks_java'
